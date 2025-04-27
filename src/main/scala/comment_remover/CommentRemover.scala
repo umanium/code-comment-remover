@@ -10,6 +10,6 @@ object CommentRemover:
     val regexes: Seq[Regex] = style match
       case Style.Python => Seq("""#(?!\s*noqa).*(\z|\n+\s*)""".r)
       case Style.C => Seq("""/\*[\S\s]*\*/(\z|\n+\s*)""".r, """//.*(\z|\n+\s*)""".r)
-      case Style.Go => Seq("""/\*[\S\s]*\*/(\z|\n+\s*)(?!package|func|type|var)""".r, """//(?!\s*go:).*(\z|\n+\s*)(?!package|func|type|var)""".r)
+      case Style.Go => Seq("""/\*[\S\s]*\*/(\z|\n+\s*)(?!package|const|func|type|var)""".r, """//(?!\s*go:).*(\z|\n+\s*)(?!package|const|func|type|var)""".r)
 
     regexes.foldLeft(s)((st, regex) => regex.replaceAllIn(st, "")).trim
